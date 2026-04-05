@@ -1,26 +1,28 @@
-import { useState, useEffect } from 'react';
-import LandingPage from './components/LandingPage';
-import type { UserAuth } from './components/LandingPage';
-import RegistrationForm from './components/RegistrationForm';
-import StatusCheck from './components/StatusCheck';
-import AdminDashboard from './components/AdminDashboard';
-import { Car, FileText, Search, LogOut, LayoutDashboard } from 'lucide-react';
+import { useState, useEffect } from "react";
+import LandingPage from "./components/LandingPage";
+import type { UserAuth } from "./components/LandingPage";
+import RegistrationForm from "./components/RegistrationForm";
+import StatusCheck from "./components/StatusCheck";
+import AdminDashboard from "./components/AdminDashboard";
+import { Car, FileText, Search, LogOut } from "lucide-react";
 
 function App() {
   const [user, setUser] = useState<UserAuth | null>(null);
-  const [activeTab, setActiveTab] = useState<'register' | 'status' | 'admin'>('register');
+  const [activeTab, setActiveTab] = useState<"register" | "status" | "admin">(
+    "register",
+  );
 
   useEffect(() => {
-    if (user?.role === 'Admin') {
-      setActiveTab('admin');
+    if (user?.role === "Admin") {
+      setActiveTab("admin");
     } else {
-      setActiveTab('register');
+      setActiveTab("register");
     }
   }, [user]);
 
-  const handleTabChange = (tab: 'register' | 'status' | 'admin') => {
+  const handleTabChange = (tab: "register" | "status" | "admin") => {
     setActiveTab(tab);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   if (!user) {
@@ -36,18 +38,22 @@ function App() {
             <div className="p-2 bg-blue-600 rounded-lg">
               <Car className="text-white w-5 h-5" />
             </div>
-            <h1 className="text-xl font-extrabold text-gray-900 tracking-tight">Campus Portal</h1>
+            <h1 className="text-xl font-extrabold text-gray-900 tracking-tight">
+              Campus Portal
+            </h1>
           </div>
-          
+
           <div className="flex items-center gap-2 sm:gap-6">
             <div className="hidden sm:block text-right">
               <p className="text-sm font-bold text-gray-900">{user.email}</p>
-              <p className="text-[10px] font-bold text-blue-600 uppercase tracking-widest">{user.role}</p>
+              <p className="text-[10px] font-bold text-blue-600 uppercase tracking-widest">
+                {user.role}
+              </p>
             </div>
             <button
               onClick={() => {
                 setUser(null);
-                setActiveTab('register');
+                setActiveTab("register");
               }}
               className="flex items-center gap-2 px-4 py-2 text-sm font-bold text-red-600 hover:bg-red-50 rounded-xl transition-all border border-transparent hover:border-red-100 group"
             >
@@ -60,28 +66,27 @@ function App() {
 
       {/* Main Content */}
       <main className="flex-1 w-full max-w-7xl mx-auto py-10 px-4 sm:px-6 lg:px-8">
-        
-        {user.role !== 'Admin' ? (
+        {user.role !== "Admin" ? (
           <>
             <div className="flex justify-center mb-8">
               <div className="inline-flex bg-gray-200/60 p-1.5 rounded-xl">
                 <button
-                  onClick={() => handleTabChange('register')}
+                  onClick={() => handleTabChange("register")}
                   className={`flex items-center gap-2 px-6 py-2.5 rounded-lg font-bold text-xs transition-all ${
-                    activeTab === 'register' 
-                    ? 'bg-white shadow text-blue-700' 
-                    : 'text-gray-500 hover:text-gray-900'
+                    activeTab === "register"
+                      ? "bg-white shadow text-blue-700"
+                      : "text-gray-500 hover:text-gray-900"
                   }`}
                 >
                   <FileText className="w-4 h-4" />
                   Register Vehicle
                 </button>
                 <button
-                  onClick={() => handleTabChange('status')}
+                  onClick={() => handleTabChange("status")}
                   className={`flex items-center gap-2 px-6 py-2.5 rounded-lg font-bold text-xs transition-all ${
-                    activeTab === 'status' 
-                    ? 'bg-white shadow text-blue-700' 
-                    : 'text-gray-500 hover:text-gray-900'
+                    activeTab === "status"
+                      ? "bg-white shadow text-blue-700"
+                      : "text-gray-500 hover:text-gray-900"
                   }`}
                 >
                   <Search className="w-4 h-4" />
@@ -90,7 +95,7 @@ function App() {
               </div>
             </div>
 
-            {activeTab === 'register' ? (
+            {activeTab === "register" ? (
               <RegistrationForm user={user} />
             ) : (
               <StatusCheck />
@@ -103,7 +108,9 @@ function App() {
 
       <footer className="py-8 bg-white border-t border-gray-100">
         <div className="max-w-7xl mx-auto px-4 text-center">
-          <p className="text-gray-400 text-sm font-bold uppercase tracking-widest">&copy; 2026 Campus Vehicle Management. All Rights Reserved.</p>
+          <p className="text-gray-400 text-sm font-bold uppercase tracking-widest">
+            &copy; 2026 Campus Vehicle Management. All Rights Reserved.
+          </p>
         </div>
       </footer>
     </div>
